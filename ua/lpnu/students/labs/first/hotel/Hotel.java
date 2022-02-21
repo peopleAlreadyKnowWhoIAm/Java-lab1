@@ -8,6 +8,32 @@ public record Hotel(
     boolean hasDinner,
     String adress
 ){
+
+    private static final String[] dinnerMessages = {
+        "There is dinner in the hotel %s",           //if there is dinner
+        "There is not dinner in the hotel %s"        //if there is not dinner
+    };      
+    private static final String noneInfMessage = "none information";
+
+    private static final String MESSAGE = 
+"""
+%s 
+    Visitors per year: %s
+    There are that number of rooms: %s
+    %s
+    The status of the hotel: %s
+    Address of the hotel: %s""";
+/*
+    1 %s -- name
+    2 %s -- number of visitors (converted to string)
+    3 %s -- number of rooms (converted to string)
+    4 %s -- whether has the hotel dinner (string message)
+    5 %s -- hotel status(string)
+    6 %s -- adress (string)
+ */
+    
+
+
     public Hotel{
         Hotel.numOfHotels++;
     }
@@ -22,30 +48,19 @@ public record Hotel(
 
     @Override
     public String toString(){
-        return 
-            name + "\n\t" + 
-            visitorsMessage + ((numOfVisitorsPerYear == -1)? noneInfMessage: numOfVisitorsPerYear) +"\n\t"+
-            roomsMessage + ((numOfRooms == -1)? noneInfMessage: numOfRooms) +"\n\t"+
-            statusMessage + status.toString() +"\n\t"+
-            dinnerMessages[((hasDinner == true)?0:1)]+"\n\t"+
-            adressMessage + adress
-        ;
+        return String.format(MESSAGE, 
+            name,
+            ((numOfVisitorsPerYear == -1)? noneInfMessage: numOfVisitorsPerYear),
+            ((numOfRooms == -1)? noneInfMessage: numOfRooms),
+            dinnerMessages[((hasDinner == true)?0:1)],
+            status.toString(),
+            adress 
+        );
     }
 
     protected void finalize(){
         Hotel.numOfHotels--;
     }
-
-
-    private static final String visitorsMessage = " Visitors per year: ";
-    private static final String roomsMessage = " There are that number of rooms: ";
-    private static final String[] dinnerMessages = {
-        " There is dinner in the hotel ",
-        " There is not dinner in the hotel "
-    };
-    private static final String adressMessage = " Address of the hotel: "; 
-    private static final String noneInfMessage = "none information";
-    private static final String statusMessage = " The status of the hotel: ";
 
     private static int numOfHotels = 0;
     public static int getNumOfHotels() {
