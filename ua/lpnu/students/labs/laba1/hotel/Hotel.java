@@ -1,4 +1,4 @@
-package ua.lpnu.students.labs.first.hotel;
+package ua.lpnu.students.labs.laba1.hotel;
 
 public record Hotel(
     String name,
@@ -8,10 +8,9 @@ public record Hotel(
     boolean hasDinner,
     String adress
 ){
-
     private static final String[] dinnerMessages = {
-        "There is dinner in the hotel %s",           //if there is dinner
-        "There is not dinner in the hotel %s"        //if there is not dinner
+        "There is dinner in the hotel",           //if there is dinner
+        "There is not dinner in the hotel"        //if there is not dinner
     };      
     private static final String noneInfMessage = "none information";
 
@@ -22,7 +21,8 @@ public record Hotel(
     There are that number of rooms: %s
     %s
     The status of the hotel: %s
-    Address of the hotel: %s""";
+    Address of the hotel: %s
+""";
 /*
     1 %s -- name
     2 %s -- number of visitors (converted to string)
@@ -67,4 +67,7 @@ public record Hotel(
         return numOfHotels;
     }
 
+    public int numOfRoomsMultipl(){
+        return numOfRooms*3;
+    }
 }
